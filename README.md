@@ -36,8 +36,12 @@ http://localhost:3005
 
 
 For local development:
+```shell script
+docker compose up
 ```
-make local // runs docker-compose.yml
+connect to local postgres db and create microservices database
+
+```
 ./mvnw compile quarkus:dev // run microservice
 ```
 
@@ -47,6 +51,7 @@ You can run your application in dev mode that enables live coding using:
 ```shell script
 ./mvnw compile quarkus:dev
 ```
+
 Alternative
 ```shell script
 quarkus dev -Ddebug=5006 -Dquarkus.http.port=8006
