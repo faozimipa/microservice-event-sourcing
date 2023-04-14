@@ -9,4 +9,5 @@ import java.util.List;
 public interface BankAccountQueryService {
     Uni<BankAccountResponseDTO> handle(GetBankAccountByIDQuery query);
     Uni<List<BankAccountDocument>> handle(FindAllByBalanceQuery query);
+    Uni<List<BankAccountDocument>> handle(FindAllBankAccountQuery query);
 }

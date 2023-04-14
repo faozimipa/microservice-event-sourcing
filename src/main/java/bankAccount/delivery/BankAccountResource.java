@@ -7,6 +7,7 @@ import bankAccount.dto.ChangeEmailRequestDTO;
 import bankAccount.dto.CreateBankAccountRequestDTO;
 import bankAccount.dto.DepositAmountRequestDTO;
 import bankAccount.queries.BankAccountQueryService;
+import bankAccount.queries.FindAllBankAccountQuery;
 import bankAccount.queries.FindAllByBalanceQuery;
 import bankAccount.queries.GetBankAccountByIDQuery;
 import io.quarkus.panache.common.Page;
@@ -106,4 +107,16 @@ public class BankAccountResource {
         final var query = new FindAllByBalanceQuery(Page.of(page.orElse(0), size.orElse(5)));
         return queryService.handle(query).onItem().transform(result -> Response.status(Response.Status.OK).entity(result).build());
     }
+
+    @GET
+    @Path("/all")
+    @Traced
+    @Retry(maxRetries = 3, delay = 300)
+    @Timeout(value = 3000)
+    @CircuitBreaker(requestVolumeThreshold = 30, delay = 3000, failureRatio = 0.6)
+    public Uni<Response> getAllBankAccount() {
+        final var query = new FindAllBankAccountQuery();
+        return queryService.handle(query).onItem().transform(result -> Response.status(Response.Status.OK).entity(result).build());
+    }
+
 }

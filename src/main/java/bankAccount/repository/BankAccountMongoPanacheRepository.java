@@ -25,4 +25,8 @@ public class BankAccountMongoPanacheRepository implements ReactivePanacheMongoRe
     public Uni<List<BankAccountDocument>> findAllSortByBalanceWithPagination(Page page) {
         return findAll(Sort.ascending("balance")).page(page).list();
     }
+
+    public Uni<List<BankAccountDocument>> findAllBankAccount() {
+        return findAll(Sort.ascending("email")).list();
+    }
 }

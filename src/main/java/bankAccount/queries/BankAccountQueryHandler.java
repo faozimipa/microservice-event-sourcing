@@ -49,4 +49,10 @@ public class BankAccountQueryHandler implements BankAccountQueryService {
         return panacheRepository.findAllSortByBalanceWithPagination(query.page())
                 .onItem().invoke(result -> logger.infof("(findAllSortByBalanceWithPagination) query: %s", query));
     }
+
+    @Override
+    public Uni<List<BankAccountDocument>> handle(FindAllBankAccountQuery query) {
+        return panacheRepository.findAllBankAccount()
+        .onItem().invoke(result -> logger.infof("(findAllBankAccount) query: %s", query));
+    }
 }
